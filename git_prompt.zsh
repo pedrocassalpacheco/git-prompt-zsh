@@ -6,6 +6,7 @@ git_remote_name() {
 
 # Function to count added, modified, and deleted files using vcs_info
 count_git_status() {
+    
     # Get the status of files and count added, modified, and deleted files
     local added=$(git status -s | grep -c '^A ')
     local modified=$(git status -s | grep -c '^ M')  # Added space after M to correctly match
@@ -17,6 +18,7 @@ count_git_status() {
 
 check_git_sync_status() {
     # Check the sync status (ahead/behind/diverged) from vcs_info
+    git fetch > /dev/null 2>&1
     local sync_status
     sync_status=$(git status -sb | grep -oE "ahead|behind|diverged")
 
