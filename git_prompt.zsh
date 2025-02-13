@@ -4,17 +4,36 @@ git_remote_name() {
     git remote get-url origin 2>/dev/null | sed -E 's#(git@|https://)[^:/]+[:/]([^/]+/[^.]+).*#\2#'
 }
 
+count_git_status() {
+
+    	
+    # Get the status of files and count added, modified, and deleted files
+    local added=$(git status -s | grep -c '^A')
+    local modified=$(git status -s | grep -c '^M')
+    local deleted=$(git status -s | grep -c '^D')
+
+    # Print the results in the desired format
+    echo "A:$added-M:$modified-D:$deleted"
+}
+
+
 precmd() {
     vcs_info
     local remote="$(git_remote_name)"
     local branch="${vcs_info_msg_0_#*:}"
     local git_info=""
 
-    branch1="${branch%%|*}"
-    state="${branch#*|}"
-
     # Check if we're inside a git repository
     if [[ -n $vcs_info_msg_0_ ]]; then
+        
+	branch1="${branch%%|*}"
+	#state="${branch#*|}"
+	state="$(count_git_status)"
+
+	if [[ "$branch1" == "$state" ]]; then
+	   state="ok"
+	fi
+
         if [[ -n $remote && -n $branch ]]; then
             git_info="${remote}/${branch1}"
         fi
