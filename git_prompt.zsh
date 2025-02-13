@@ -18,7 +18,7 @@ count_git_status() {
 
 check_git_sync_status() {
     # Check the sync status (ahead/behind/diverged) from vcs_info
-    git fetch > /dev/null 2>&1
+    #git fetch > /dev/null 2>&1 - this is too slow
     local sync_status
     sync_status=$(git status -sb | grep -oE "ahead|behind|diverged")
 
