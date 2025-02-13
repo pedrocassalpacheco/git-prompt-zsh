@@ -18,7 +18,7 @@ count_git_status() {
 check_git_sync_status() {
     # Check the sync status (ahead/behind/diverged) from vcs_info
     local sync_status
-    sync_status=$(echo "$vcs_info_msg_0_" | grep -oE "ahead|behind|diverged")
+    sync_status=$(git status -sb | grep -oE "ahead|behind|diverged")
 
     if [[ "$sync_status" == "ahead" ]]; then
         echo "ahead"
