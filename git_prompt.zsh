@@ -50,7 +50,7 @@ precmd() {
         fi
 
         # Final prompt: displaying the desired information with Git info
-        PROMPT='%F{160}git%f@%F{blue}%~%f~%F{yellow}'"$git_info"'%f %F{magenta}'"$git_state"'%f %F{47}'"$sync_status"'%f > '
+        PROMPT='%K{white}%F{black}git%k%f@%F{blue}%~%f~%F{yellow}'"$git_info"'%f %F{magenta}'"$git_state"'%f %F{47}%B'"$sync_status"'%f%b > '
     else
         # Set the prompt when not in a Git repository
         PROMPT='%F{yellow}%n%f@%F{blue}%~%f > '
